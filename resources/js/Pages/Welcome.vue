@@ -11,14 +11,14 @@ async function sendPhish(){
     let phishingText = document.getElementById("phishingText").value;
     const predictData = await predictText(phishingText);
     probability.value = predictData.probability;
-    console.log(predictData)
+    hamOrSpam = predictData.label   
     if(probability.value >= .5){
         beenPhished=true;
     }
 
 }
 
-async function predictText(text, model = 'fasttext') {
+async function predictText(text, model = 'bert') {
   const url = 'https://europe.ots-api.telecomsxchange.com/predict/';
   
   const requestBody = {
@@ -71,25 +71,25 @@ async function predictText(text, model = 'fasttext') {
                             <div class="flex flex-col gap-1  w-1/2">
                                 <p>Enter a message:</p>
                                 <textarea class="bg-black/5 border-none rounded-md p-2 text-xs" id="phishingText"></textarea>
-                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-green-500/10 transition-all">🎣</button>
+                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-blue-500/10 transition-all">🎣</button>
                             </div>
                         </div>
                         <div class="flex justify-start pl-10">
                             <div class="flex flex-col gap-1">
                                 <div class="flex flex-col gap-1">
-                                    <p>Are we going phishing?</p>
-                                    <p class="font-bold text-sm uppercase"><span class="text-green-600" v-if="beenPhished">yes</span><span v-else class="text-red-600">no</span></p>
+                                    <p>Are we hamming, spamming or phishin'?</p>
+                                    <p class="font-bold text-sm uppercase" :class="{ 'text-green-600': hamOrSpam === 'ham', 'text-red-600': hamOrSpam === 'spam', 'text-blue-600': hamOrSpam === 'phishing' }">{{ hamOrSpam }} {{ hamOrSpam === 'phishing' ? '🎣' : '' }} {{ hamOrSpam === '' ? 'waiting' : '' }}</p>
                                 </div>
-                                <p class="text-xs"><span>{{((probability*100) % 100)}}</span>% probability</p>
+                                <p class="text-xs"><span>{{((probability*100))}}</span>% probability</p>
                             </div>
                         </div>
                     </section>
                 </main>
 
                 <footer
-                    class="py-16 text-center text-sm text-black dark:text-white/70"
+                    class="py-16 text-center text-xs text-black dark:text-white/70"
                 >
-                    let's go spearphishing.
+                    let's catch some phishers. 🔫
                 </footer>
             </div>
         </div>
