@@ -18,6 +18,12 @@ defineProps({
     },
 });
 
+
+function sendPhish(){
+    let phishingText = document.getElementById("phishingText").innerText;
+
+}
+
 </script>
 
 <template>
@@ -28,7 +34,7 @@ defineProps({
         >
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header
-                    class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3"
+                    class="items-center gap-2 py-10 lg:grid-cols-3"
                 >
                     <div class="flex flex-col lg:col-start-2 lg:justify-center items-center text-lg text-black font-bold">
                         <span class="text-2xl">🐻 🍽️ 🐟</span>
@@ -37,12 +43,22 @@ defineProps({
                 </header>
 
                 <main class="mt-6">
-                    <section class="grid grid-cols-2">
-                        <div class="flex justify-center">
-                            <p>text input</p>
+                    <section class="grid grid-cols-2 text-black text-sm">
+                        <div class="flex justify-end pr-10">
+                            <div class="flex flex-col gap-1 w-1/2">
+                                <p>Enter a message:</p>
+                                <textarea class="bg-black/5 border-none rounded-md p-2 text-xs" id="phishingText"></textarea>
+                                <button class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-green-500/10 transition-all">🎣</button>
+                            </div>
                         </div>
-                        <div class="flex justify-center">
-                            <p>probability output</p>
+                        <div class="flex justify-start pl-10">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex gap-2">
+                                    <p>Are we going phishing?</p>
+                                    <p class="font-bold text-sm uppercase"><span class="text-green-600">yes</span><span class="text-red-600">no</span></p>
+                                </div>
+                                <p class="text-xs">XX probability (%)</p>
+                            </div>
                         </div>
                     </section>
                 </main>
@@ -50,7 +66,7 @@ defineProps({
                 <footer
                     class="py-16 text-center text-sm text-black dark:text-white/70"
                 >
-                    spearphishing.
+                    let's go spearphishing.
                 </footer>
             </div>
         </div>
