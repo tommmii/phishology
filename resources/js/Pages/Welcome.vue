@@ -53,14 +53,15 @@ async function predictText(text, model = 'bert') {
     <Head title="Phishology" />
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <div
-            class="relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white"
+            class="relative flex min-h-screen flex-col items-center justify-center selection:bg-blue-400 selection:text-white"
         >
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header
                     class="items-center gap-2 py-10 lg:grid-cols-3"
                 >
                     <div class="flex flex-col lg:col-start-2 lg:justify-center items-center text-lg text-black font-bold">
-                        <span class="text-2xl">🐻 🍽️ 🐟</span>
+                        <!-- <span class="text-2xl">🐻 🍽️ 🐟</span> -->
+                        <img src="../../../public/images/logoImage.png" class=" w-20"/>
                         <p>phishology</p>
                     </div>
                 </header>
@@ -71,7 +72,7 @@ async function predictText(text, model = 'bert') {
                             <div class="flex flex-col gap-1  w-1/2">
                                 <p>Enter a message:</p>
                                 <textarea class="bg-black/5 border-none rounded-md p-2 text-xs" id="phishingText"></textarea>
-                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-blue-500/10 transition-all">🎣</button>
+                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-blue-500/10 transition-all">🐠</button>
                             </div>
                         </div>
                         <div class="flex justify-start pl-10">
@@ -89,7 +90,7 @@ async function predictText(text, model = 'bert') {
                 <footer
                     class="py-16 text-center text-xs text-black dark:text-white/70"
                 >
-                    let's catch some phishers. 🔫
+                    let's catch some phish. 🎣
                 </footer>
             </div>
         </div>
