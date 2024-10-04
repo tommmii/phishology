@@ -1,27 +1,50 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
-});
+import { ref } from 'vue';
 
 
-function sendPhish(){
-    let phishingText = document.getElementById("phishingText").innerText;
+let probability = ref(0);
+let hamOrSpam = ref('')
+let beenPhished = ref(false);
 
+async function sendPhish(){
+    let phishingText = document.getElementById("phishingText").value;
+    const predictData = await predictText(phishingText);
+    probability.value = predictData.probability;
+    console.log(predictData)
+    if(probability.value >= .5){
+        beenPhished=true;
+    }
+
+}
+
+async function predictText(text, model = 'fasttext') {
+  const url = 'https://europe.ots-api.telecomsxchange.com/predict/';
+  
+  const requestBody = {
+    text: text,
+    model: model
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    throw error;
+  }
 }
 
 </script>
@@ -45,19 +68,19 @@ function sendPhish(){
                 <main class="mt-6">
                     <section class="grid grid-cols-2 text-black text-sm">
                         <div class="flex justify-end pr-10">
-                            <div class="flex flex-col gap-1 w-1/2">
+                            <div class="flex flex-col gap-1  w-1/2">
                                 <p>Enter a message:</p>
                                 <textarea class="bg-black/5 border-none rounded-md p-2 text-xs" id="phishingText"></textarea>
-                                <button class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-green-500/10 transition-all">🎣</button>
+                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-green-500/10 transition-all">🎣</button>
                             </div>
                         </div>
                         <div class="flex justify-start pl-10">
                             <div class="flex flex-col gap-1">
-                                <div class="flex gap-2">
+                                <div class="flex flex-col gap-1">
                                     <p>Are we going phishing?</p>
-                                    <p class="font-bold text-sm uppercase"><span class="text-green-600">yes</span><span class="text-red-600">no</span></p>
+                                    <p class="font-bold text-sm uppercase"><span class="text-green-600" v-if="beenPhished">yes</span><span v-else class="text-red-600">no</span></p>
                                 </div>
-                                <p class="text-xs">XX probability (%)</p>
+                                <p class="text-xs"><span>{{((probability*100) % 100)}}</span>% probability</p>
                             </div>
                         </div>
                     </section>
