@@ -71,8 +71,8 @@ async function predictText(text, model = 'bert') {
                         <div class="flex justify-end pr-10">
                             <div class="flex flex-col gap-1  w-1/2">
                                 <p>Enter a message:</p>
-                                <textarea class="bg-black/5 border-none rounded-md p-2 text-xs" id="phishingText"></textarea>
-                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-blue-500/10 transition-all">🐠</button>
+                                <textarea class="bg-black/5 border-none rounded-md p-2 text-xs min-h-10 max-h-52" id="phishingText"></textarea>
+                                <button @click="sendPhish" class="border-[1px] border-black/20 text-center p-1 rounded-md hover:bg-blue-500/10 transition-all">🎣</button>
                             </div>
                         </div>
                         <div class="flex justify-start pl-10">
@@ -90,7 +90,8 @@ async function predictText(text, model = 'bert') {
                 <footer
                     class="py-16 text-center text-xs text-black dark:text-white/70"
                 >
-                    let's catch some phish. 🎣
+                    let's catch some phish.
+                    <p class="pt-1">🐻 🍽️ 🐟</p>
                 </footer>
             </div>
         </div>
